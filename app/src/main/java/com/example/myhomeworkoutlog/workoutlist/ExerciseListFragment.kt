@@ -1,23 +1,20 @@
 package com.example.myhomeworkoutlog.workoutlist
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myhomeworkoutlog.R
-import com.example.myhomeworkoutlog.database.Exercise
 import com.example.myhomeworkoutlog.database.WorkoutLoggerDatabase
 import com.example.myhomeworkoutlog.databinding.FragmentWorkoutListBinding
 import com.example.myhomeworkoutlog.workoutlist.addexercise.AddExerciseDialog
@@ -56,14 +53,28 @@ class ExerciseListFragment : Fragment() {
 
         binding.viewModel = viewModel
 
-        val adapter: ExerciseListRVAdapter =
+        val adapter =
             ExerciseListRVAdapter(ExerciseListRVAdapter.ExerciseListener { exerciseId ->
                 Snackbar.make(
                     binding.layoutExerciseListParent,
                     "you clicked $exerciseId",
                     Snackbar.LENGTH_SHORT
                 ).show()
-            })
+            }) { exerciseId ->
+                AlertDialog.Builder(context)
+                    .setTitle("Delete entry")
+                    .setMessage("Are you sure you want to delete this entry?") // Specifying a listener allows you to take an action before dismissing the dialog.
+                    // The dialog is automatically dismissed when a dialog button is clicked.
+                    .setPositiveButton(
+                        android.R.string.yes
+                    ) { dialog, which ->
+                        Log.d("Long click","positive")   // Continue with delete operation
+                    } // A null listener allows the button to dismiss the dialog and take no further action.
+                    .setNegativeButton(android.R.string.no) {dialog, which ->
+                        Log.d("Long click","negative button")
+                    }
+                    .show()
+            }
 
         val manager = GridLayoutManager(context, 2)
         binding.exerciseList.adapter = adapter
@@ -93,7 +104,6 @@ class ExerciseListFragment : Fragment() {
 
     }
 
-
     private fun addNewWorkoutItem() {
         val ft = parentFragmentManager.beginTransaction()
         val prev = parentFragmentManager.findFragmentByTag("dialog")
@@ -101,9 +111,9 @@ class ExerciseListFragment : Fragment() {
         if (prev != null) {
             ft.remove(prev).commit()
         }
+        
         ft.addToBackStack(null)
-
-        dialogFragment.show(ft,"dialog")
+        dialogFragment.show(ft, "dialog")
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
