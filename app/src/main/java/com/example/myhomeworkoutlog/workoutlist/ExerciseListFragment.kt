@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.myhomeworkoutlog.R
 import com.example.myhomeworkoutlog.database.WorkoutLoggerDatabase
 import com.example.myhomeworkoutlog.databinding.FragmentWorkoutListBinding
@@ -64,7 +65,7 @@ class ExerciseListFragment : Fragment() {
                 confirmDeleteExercise(exerciseId)
             }
 
-        val manager = GridLayoutManager(context, 2)
+        val manager = GridLayoutManager(context, 2)// StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)//
         binding.exerciseList.adapter = adapter
         binding.exerciseList.layoutManager = manager
 
