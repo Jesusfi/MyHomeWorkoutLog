@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">MyHomeWorkoutLog</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="error_enter_exercise_name">Please Enter Exercise Name</string>
+    <string name="notify_list_cleared">List cleared</string>
+
+
+    <string-array name="exercise_type">
+        <item>Cardio</item>
+        <item>Strength</item>
+    </string-array>
+</resources>
