@@ -61,19 +61,7 @@ class ExerciseListFragment : Fragment() {
                     Snackbar.LENGTH_SHORT
                 ).show()
             }) { exerciseId ->
-                AlertDialog.Builder(context)
-                    .setTitle("Delete entry")
-                    .setMessage("Are you sure you want to delete this entry?") // Specifying a listener allows you to take an action before dismissing the dialog.
-                    // The dialog is automatically dismissed when a dialog button is clicked.
-                    .setPositiveButton(
-                        android.R.string.yes
-                    ) { dialog, which ->
-                        Log.d("Long click","positive")   // Continue with delete operation
-                    } // A null listener allows the button to dismiss the dialog and take no further action.
-                    .setNegativeButton(android.R.string.no) {dialog, which ->
-                        Log.d("Long click","negative button")
-                    }
-                    .show()
+                confirmDeleteExercise(exerciseId)
             }
 
         val manager = GridLayoutManager(context, 2)
@@ -95,6 +83,19 @@ class ExerciseListFragment : Fragment() {
         return binding.root
     }
 
+    private fun confirmDeleteExercise(exerciseId: Long) {
+        AlertDialog.Builder(context)
+            .setTitle("Delete entry")
+            .setMessage("Are you sure you want to delete this entry?")
+            .setPositiveButton(
+                android.R.string.yes
+            ) { dialog, which ->
+                viewModel.onDeleteExerciseById(exerciseId)
+            }
+            .setNegativeButton(android.R.string.no, null)
+            .show()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val navController = findNavController()
         val appBarConfiguration = AppBarConfiguration(navController.graph)
@@ -111,7 +112,7 @@ class ExerciseListFragment : Fragment() {
         if (prev != null) {
             ft.remove(prev).commit()
         }
-        
+
         ft.addToBackStack(null)
         dialogFragment.show(ft, "dialog")
     }

@@ -75,6 +75,18 @@ class ExerciseListViewModel(
         }
     }
 
+    fun onDeleteExerciseById(exerciseId: Long){
+        uiScope.launch {
+            deleteExerciseWithId(exerciseId)
+        }
+    }
+
+    private suspend fun deleteExerciseWithId(exerciseId: Long) {
+        withContext(Dispatchers.IO){
+            database.deleteByExerciseId(exerciseId)
+        }
+    }
+
     private suspend fun clear(){
         withContext(Dispatchers.IO){
             database.clear()
