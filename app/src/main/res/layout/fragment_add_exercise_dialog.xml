@@ -63,13 +63,12 @@
                 android:entries="@array/exercise_type" />
 
             <Button
-                android:id="@+id/button_add_exercise"
+                android:id="@+id/button_complete_dialog_action"
                 style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:text="Save"
-
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp" />
         </LinearLayout>

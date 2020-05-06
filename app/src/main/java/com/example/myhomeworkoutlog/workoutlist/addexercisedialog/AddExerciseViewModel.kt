@@ -1,6 +1,7 @@
 package com.example.myhomeworkoutlog.workoutlist.addexercisedialog
 
 import android.app.Application
+import android.text.TextUtils
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -45,18 +46,23 @@ class AddExerciseViewModel(
     val userInputNothingForExerciseNameEvent: LiveData<Boolean>
         get() = _userInputNothingForExerciseNameEvent
 
+    private val _exitDialogEventOnActionComplete = MutableLiveData<Boolean>()
+    val exitDialogEventOnActionComplete: LiveData<Boolean>
+        get() = _exitDialogEventOnActionComplete
 
     init {
         _userInputNothingForExerciseNameEvent.value = false
+        _exitDialogEventOnActionComplete.value = false
     }
 
-    fun onCreateNewExercise(exerciseName: String, exerciseType: String) {
+    private fun createAndSaveNewExercise(exerciseName: String, exerciseType: String) {
         Log.d("AddExercise", "reached create new exercise")
         val exercise = Exercise(exerciseName = exerciseName, exerciseType = exerciseType)
 
         uiScope.launch {
             Log.d("AddExercise", "in uiScope")
             insert(exercise)
+            _exitDialogEventOnActionComplete.value = true
         }
     }
 
@@ -66,11 +72,25 @@ class AddExerciseViewModel(
         }
     }
 
-    fun onUserInputNothing() {
+    private fun onUserInputNothing() {
         _userInputNothingForExerciseNameEvent.value = true
     }
 
-    fun finishedNotifyingUserInputtedNothing(){
+    fun onUserClickDialogButton(exerciseName: String, exerciseType: String, inputType: Int) {
+        if (TextUtils.isEmpty(exerciseName)) {
+            onUserInputNothing()
+        } else if (inputType == 1) {
+            createAndSaveNewExercise(exerciseName, exerciseType)
+        } else {
+
+        }
+    }
+
+    fun finishedExitingDialog() {
+        _exitDialogEventOnActionComplete.value = false
+    }
+
+    fun finishedNotifyingUserInputtedNothing() {
         _userInputNothingForExerciseNameEvent.value = false
     }
 
