@@ -1,9 +1,7 @@
 package com.example.myhomeworkoutlog.workoutlist
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -14,11 +12,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.myhomeworkoutlog.R
 import com.example.myhomeworkoutlog.database.WorkoutLoggerDatabase
 import com.example.myhomeworkoutlog.databinding.FragmentWorkoutListBinding
-import com.example.myhomeworkoutlog.workoutlist.addexercise.AddExerciseDialog
+import com.example.myhomeworkoutlog.workoutlist.addexercisedialog.AddExerciseDialog
+import com.example.myhomeworkoutlog.workoutlist.contextmenudialog.ContextMenuListDialog
 import com.google.android.material.snackbar.Snackbar
 
 
@@ -62,7 +60,8 @@ class ExerciseListFragment : Fragment() {
                     Snackbar.LENGTH_SHORT
                 ).show()
             }) { exerciseId ->
-                confirmDeleteExercise(exerciseId)
+                //confirmDeleteExercise(exerciseId)
+                showContextMenuForExercise(exerciseId)
             }
 
         val manager = GridLayoutManager(context, 2)// StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)//
@@ -116,6 +115,20 @@ class ExerciseListFragment : Fragment() {
 
         ft.addToBackStack(null)
         dialogFragment.show(ft, "dialog")
+    }
+
+    private fun showContextMenuForExercise(exerciseId: Long) {
+        val ft = parentFragmentManager.beginTransaction()
+        val prev = parentFragmentManager.findFragmentByTag(ContextMenuListDialog.TAG)
+
+        if (prev != null) {
+            ft.remove(prev).commit()
+        }
+
+        ft.addToBackStack(null)
+        val contextMenuDialog = ContextMenuListDialog.getInstance(exerciseId)
+        contextMenuDialog.show(ft, ContextMenuListDialog.TAG)
+       // parentFragmentManager.executePendingTransactions()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

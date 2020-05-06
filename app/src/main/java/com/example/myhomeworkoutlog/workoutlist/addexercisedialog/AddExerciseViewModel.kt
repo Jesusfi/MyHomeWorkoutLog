@@ -1,4 +1,4 @@
-package com.example.myhomeworkoutlog.workoutlist.addexercise
+package com.example.myhomeworkoutlog.workoutlist.addexercisedialog
 
 import android.app.Application
 import android.util.Log

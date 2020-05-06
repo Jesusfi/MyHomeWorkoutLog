@@ -7,7 +7,10 @@
 
         <variable
             name="viewModel"
-            type="com.example.myhomeworkoutlog.workoutlist.addexercise.AddExerciseViewModel" />
+            type="com.example.myhomeworkoutlog.workoutlist.addexercisedialog.AddExerciseViewModel" />
+        <variable
+            name="dialogTypeIdentifier"
+            type="String" />
     </data>
 
 
@@ -66,6 +69,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:text="Save"
+
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp" />
         </LinearLayout>
