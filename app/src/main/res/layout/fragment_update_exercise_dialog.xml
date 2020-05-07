@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="viewModel"
-            type="com.example.myhomeworkoutlog.exerciselist.addexercisedialog.AddExerciseViewModel" />
+            type="com.example.myhomeworkoutlog.exerciselist.updateexercisedialog.UpdateExerciseViewModel" />
         <variable
-            name="dialogTypeIdentifier"
-            type="String" />
+            name="exercise"
+            type="com.example.myhomeworkoutlog.database.Exercise" />
     </data>
-
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -30,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:gravity="center_horizontal"
-                android:text="New Exercise"
+                android:text="Update Exercise"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="20sp"
@@ -50,6 +47,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="textCapWords"
                     android:singleLine="true"
+                    android:text="@{exercise.exerciseName}"
                     android:textColorHint="@color/colorPrimary" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -63,7 +61,7 @@
                 android:entries="@array/exercise_type" />
 
             <Button
-                android:id="@+id/button_complete_dialog_action"
+                android:id="@+id/button_update"
                 style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -73,5 +71,4 @@
                 android:textSize="14sp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
 </layout>

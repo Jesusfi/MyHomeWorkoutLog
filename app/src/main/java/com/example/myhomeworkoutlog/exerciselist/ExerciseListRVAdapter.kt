@@ -1,4 +1,4 @@
-package com.example.myhomeworkoutlog.workoutlist
+package com.example.myhomeworkoutlog.exerciselist
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

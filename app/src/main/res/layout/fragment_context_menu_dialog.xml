@@ -4,7 +4,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.myhomeworkoutlog.workoutlist.contextmenudialog.ContextMenuListViewModel" />
+            type="com.example.myhomeworkoutlog.exerciselist.contextmenudialog.ContextMenuListViewModel" />
         <variable
             name="exerciseId"
             type="Long" />
@@ -20,6 +20,7 @@
             style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.onEditSelectedExercise()}"
             android:text="Edit" />
 
         <Button

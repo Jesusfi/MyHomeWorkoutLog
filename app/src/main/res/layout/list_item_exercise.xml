@@ -9,7 +9,7 @@
             type="com.example.myhomeworkoutlog.database.Exercise" />
         <variable
             name="clickListener"
-            type="com.example.myhomeworkoutlog.workoutlist.ExerciseListRVAdapter.ExerciseListener" />
+            type="com.example.myhomeworkoutlog.exerciselist.ExerciseListRVAdapter.ExerciseListener" />
     </data>
 
     <androidx.cardview.widget.CardView

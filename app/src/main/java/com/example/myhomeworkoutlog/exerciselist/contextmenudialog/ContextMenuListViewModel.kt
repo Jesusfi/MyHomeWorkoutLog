@@ -1,4 +1,4 @@
-package com.example.myhomeworkoutlog.workoutlist.contextmenudialog
+package com.example.myhomeworkoutlog.exerciselist.contextmenudialog
 
 import android.app.Application
 import android.util.Log
@@ -33,21 +33,39 @@ class ContextMenuListViewModel(
 
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    private val _exitDialogEventOnActionComplete = MutableLiveData<Boolean>()
-    val exitDialogEventOnActionComplete: LiveData<Boolean>
-        get() = _exitDialogEventOnActionComplete
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
+    }
+
+    private val _exitDialogOnDeleteComplete = MutableLiveData<Boolean>()
+    val exitDialogOnDeleteComplete: LiveData<Boolean>
+        get() = _exitDialogOnDeleteComplete
+
+    private val _navigateToEditExerciseDialog = MutableLiveData<Boolean>()
+    val navigateToEditExerciseDialog: LiveData<Boolean>
+        get() = _navigateToEditExerciseDialog
 
     init {
-        _exitDialogEventOnActionComplete.value = false
+        _exitDialogOnDeleteComplete.value = false
+        _navigateToEditExerciseDialog.value = false
     }
 
     fun onDeleteSelectedExercise(exerciseId: Long) {
         uiScope.launch {
             Log.d("deleteItem", "in ui scope launch before")
             deleteExercise(exerciseId)
-            _exitDialogEventOnActionComplete.value = true
+            _exitDialogOnDeleteComplete.value = true
             Log.d("deleteItem", "in ui scope launch after")
         }
+    }
+
+    fun onEditSelectedExercise() {
+        _navigateToEditExerciseDialog.value = true
+    }
+
+    fun onNavigationToEditDialogComplete(){
+        _navigateToEditExerciseDialog.value = false
     }
 
     private suspend fun deleteExercise(exerciseId: Long) {
@@ -56,8 +74,9 @@ class ContextMenuListViewModel(
             Log.d("deleteItem", "in deleteExercise")
         }
     }
-    fun finishedExitDialog(){
-        _exitDialogEventOnActionComplete.value = false
+
+    fun finishedExitDialog() {
+        _exitDialogOnDeleteComplete.value = false
         Log.d("deleteItem", "exit complete")
 
     }

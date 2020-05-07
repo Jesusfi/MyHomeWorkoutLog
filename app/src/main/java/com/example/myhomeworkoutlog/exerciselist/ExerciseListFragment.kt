@@ -1,4 +1,4 @@
-package com.example.myhomeworkoutlog.workoutlist
+package com.example.myhomeworkoutlog.exerciselist
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -15,8 +15,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.myhomeworkoutlog.R
 import com.example.myhomeworkoutlog.database.WorkoutLoggerDatabase
 import com.example.myhomeworkoutlog.databinding.FragmentWorkoutListBinding
-import com.example.myhomeworkoutlog.workoutlist.addexercisedialog.AddExerciseDialog
-import com.example.myhomeworkoutlog.workoutlist.contextmenudialog.ContextMenuListDialog
+import com.example.myhomeworkoutlog.exerciselist.addexercisedialog.AddExerciseDialog
+import com.example.myhomeworkoutlog.exerciselist.contextmenudialog.ContextMenuListDialog
 import com.google.android.material.snackbar.Snackbar
 
 
@@ -26,8 +26,6 @@ import com.google.android.material.snackbar.Snackbar
 class ExerciseListFragment : Fragment() {
     lateinit var binding: FragmentWorkoutListBinding
     lateinit var viewModel: ExerciseListViewModel
-    private val dialogFragment = AddExerciseDialog()
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -107,14 +105,14 @@ class ExerciseListFragment : Fragment() {
 
     private fun addNewWorkoutItem() {
         val ft = parentFragmentManager.beginTransaction()
-        val prev = parentFragmentManager.findFragmentByTag("dialog")
+        val prev = parentFragmentManager.findFragmentByTag(AddExerciseDialog.TAG)
 
         if (prev != null) {
             ft.remove(prev).commit()
         }
-
+        val dialogFragment = AddExerciseDialog.newInstance()
         ft.addToBackStack(null)
-        dialogFragment.show(ft, "dialog")
+        dialogFragment.show(ft, AddExerciseDialog.TAG)
     }
 
     private fun showContextMenuForExercise(exerciseId: Long) {

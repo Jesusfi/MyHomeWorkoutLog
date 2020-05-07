@@ -1,9 +1,8 @@
-package com.example.myhomeworkoutlog.workoutlist.addexercisedialog
+package com.example.myhomeworkoutlog.exerciselist.addexercisedialog
 
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,10 +14,19 @@ import com.example.myhomeworkoutlog.R
 import com.example.myhomeworkoutlog.database.WorkoutLoggerDatabase
 import com.example.myhomeworkoutlog.databinding.FragmentAddExerciseDialogBinding
 
-class AddExerciseDialog : DialogFragment() {
+class AddExerciseDialog private constructor() : DialogFragment() {
 
     lateinit var binding: FragmentAddExerciseDialogBinding
     lateinit var viewModel: AddExerciseViewModel
+
+
+    companion object{
+        const val TAG = "AddExerciseDialog"
+
+        fun newInstance(): AddExerciseDialog{
+            return AddExerciseDialog()
+        }
+    }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(activity)
@@ -33,7 +41,7 @@ class AddExerciseDialog : DialogFragment() {
         val viewModelFactory = AddExerciseViewModelFactory(dataSource, application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(AddExerciseViewModel::class.java)
         binding.viewModel = viewModel
-
+        
         //Set adapter
         val spinnerAdapter = ArrayAdapter.createFromResource(
             application.applicationContext,
@@ -76,7 +84,6 @@ class AddExerciseDialog : DialogFragment() {
         binding.editTextExerciseName.error = getString(R.string.error_enter_exercise_name)
         viewModel.finishedNotifyingUserInputtedNothing()
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater,

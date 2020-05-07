@@ -1,4 +1,4 @@
-package com.example.myhomeworkoutlog.workoutlist.contextmenudialog
+package com.example.myhomeworkoutlog.exerciselist.contextmenudialog
 
 import android.app.AlertDialog
 import android.app.Dialog
@@ -10,8 +10,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.myhomeworkoutlog.database.WorkoutLoggerDatabase
 import com.example.myhomeworkoutlog.databinding.FragmentContextMenuDialogBinding
-import com.example.myhomeworkoutlog.workoutlist.ExerciseListViewModel
-import com.example.myhomeworkoutlog.workoutlist.ExerciseListViewModelFactory
+import com.example.myhomeworkoutlog.exerciselist.addexercisedialog.AddExerciseDialog
+import com.example.myhomeworkoutlog.exerciselist.updateexercisedialog.UpdateExerciseDialog
 
 class ContextMenuListDialog private constructor(): DialogFragment() {
 
@@ -22,10 +22,10 @@ class ContextMenuListDialog private constructor(): DialogFragment() {
         //Get arguments
         val exerciseId = arguments?.getLong(BUNDLE_KEY)
         Log.d("bundleTest","Got key ${exerciseId}")
+
         //inflate view
         binding = FragmentContextMenuDialogBinding.inflate(LayoutInflater.from(context))
         binding.lifecycleOwner = this
-
 
         val application = requireNotNull(this.activity).application
         val dataSource = WorkoutLoggerDatabase.getInstance(application).exerciseDao
@@ -37,12 +37,20 @@ class ContextMenuListDialog private constructor(): DialogFragment() {
         binding.viewModel = viewModel
         binding.exerciseId = exerciseId
 
-       viewModel.exitDialogEventOnActionComplete.observe(this, Observer {
+       viewModel.exitDialogOnDeleteComplete.observe(this, Observer {
            if(it){
                dismiss()
+               Log.d("ContextMenuDialog","Reached dismiss")
                viewModel.finishedExitDialog()
            }
        })
+
+        viewModel.navigateToEditExerciseDialog.observe(this, Observer {
+            if(it){
+                navigateToUpdateExercise(exerciseId)
+                viewModel.onNavigationToEditDialogComplete()
+            }
+        })
 
         val builder = AlertDialog.Builder(activity)
         builder.setTitle("Choose Action")
@@ -51,6 +59,24 @@ class ContextMenuListDialog private constructor(): DialogFragment() {
         return builder.create()
     }
 
+    private fun navigateToUpdateExercise(exerciseId: Long?) {
+        exerciseId?.let {
+            showUpdateExerciseDialog(exerciseId)
+        }
+    }
+
+    private fun showUpdateExerciseDialog(exerciseId: Long) {
+        val ft = parentFragmentManager.beginTransaction()
+        val prev = parentFragmentManager.findFragmentByTag(UpdateExerciseDialog.TAG)
+
+        if (prev != null) {
+            ft.remove(prev).commit()
+        }
+        val dialogFragment = UpdateExerciseDialog.newInstance(exerciseId)
+        parentFragmentManager.popBackStackImmediate()
+        ft.addToBackStack(null)
+        dialogFragment.show(ft, UpdateExerciseDialog.TAG)
+    }
     companion object{
         const val TAG = "ContextMenuExerciseListDialog"
         private const val BUNDLE_KEY = "exerciseKey"

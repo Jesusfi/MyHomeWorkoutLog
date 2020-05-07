@@ -1,6 +1,7 @@
-package com.example.myhomeworkoutlog.workoutlist.addexercisedialog
+package com.example.myhomeworkoutlog.exerciselist.addexercisedialog
 
 import android.app.Application
+import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
@@ -93,6 +94,8 @@ class AddExerciseViewModel(
     fun finishedNotifyingUserInputtedNothing() {
         _userInputNothingForExerciseNameEvent.value = false
     }
+
+
 
 
 }
