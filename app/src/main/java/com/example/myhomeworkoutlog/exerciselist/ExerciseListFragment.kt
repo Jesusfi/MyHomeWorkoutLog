@@ -1,26 +1,22 @@
-package com.example.myhomeworkoutlog.workoutlist
+package com.example.myhomeworkoutlog.exerciselist
 
+import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myhomeworkoutlog.R
-import com.example.myhomeworkoutlog.database.Exercise
 import com.example.myhomeworkoutlog.database.WorkoutLoggerDatabase
 import com.example.myhomeworkoutlog.databinding.FragmentWorkoutListBinding
-import com.example.myhomeworkoutlog.workoutlist.addexercise.AddExerciseDialog
+import com.example.myhomeworkoutlog.exerciselist.addexercisedialog.AddExerciseDialog
+import com.example.myhomeworkoutlog.exerciselist.contextmenudialog.ContextMenuListDialog
 import com.google.android.material.snackbar.Snackbar
 
 
@@ -30,8 +26,6 @@ import com.google.android.material.snackbar.Snackbar
 class ExerciseListFragment : Fragment() {
     lateinit var binding: FragmentWorkoutListBinding
     lateinit var viewModel: ExerciseListViewModel
-    private val dialogFragment = AddExerciseDialog()
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,16 +50,19 @@ class ExerciseListFragment : Fragment() {
 
         binding.viewModel = viewModel
 
-        val adapter: ExerciseListRVAdapter =
+        val adapter =
             ExerciseListRVAdapter(ExerciseListRVAdapter.ExerciseListener { exerciseId ->
                 Snackbar.make(
                     binding.layoutExerciseListParent,
                     "you clicked $exerciseId",
                     Snackbar.LENGTH_SHORT
                 ).show()
-            })
+            }) { exerciseId ->
+                //confirmDeleteExercise(exerciseId)
+                showContextMenuForExercise(exerciseId)
+            }
 
-        val manager = GridLayoutManager(context, 2)
+        val manager = GridLayoutManager(context, 2)// StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)//
         binding.exerciseList.adapter = adapter
         binding.exerciseList.layoutManager = manager
 
@@ -84,6 +81,19 @@ class ExerciseListFragment : Fragment() {
         return binding.root
     }
 
+    private fun confirmDeleteExercise(exerciseId: Long) {
+        AlertDialog.Builder(context)
+            .setTitle("Delete entry")
+            .setMessage("Are you sure you want to delete this entry?")
+            .setPositiveButton(
+                android.R.string.yes
+            ) { dialog, which ->
+                viewModel.onDeleteExerciseById(exerciseId)
+            }
+            .setNegativeButton(android.R.string.no, null)
+            .show()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val navController = findNavController()
         val appBarConfiguration = AppBarConfiguration(navController.graph)
@@ -93,17 +103,30 @@ class ExerciseListFragment : Fragment() {
 
     }
 
-
     private fun addNewWorkoutItem() {
         val ft = parentFragmentManager.beginTransaction()
-        val prev = parentFragmentManager.findFragmentByTag("dialog")
+        val prev = parentFragmentManager.findFragmentByTag(AddExerciseDialog.TAG)
 
         if (prev != null) {
             ft.remove(prev).commit()
         }
+        val dialogFragment = AddExerciseDialog.newInstance()
         ft.addToBackStack(null)
+        dialogFragment.show(ft, AddExerciseDialog.TAG)
+    }
 
-        dialogFragment.show(ft,"dialog")
+    private fun showContextMenuForExercise(exerciseId: Long) {
+        val ft = parentFragmentManager.beginTransaction()
+        val prev = parentFragmentManager.findFragmentByTag(ContextMenuListDialog.TAG)
+
+        if (prev != null) {
+            ft.remove(prev).commit()
+        }
+
+        ft.addToBackStack(null)
+        val contextMenuDialog = ContextMenuListDialog.getInstance(exerciseId)
+        contextMenuDialog.show(ft, ContextMenuListDialog.TAG)
+       // parentFragmentManager.executePendingTransactions()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

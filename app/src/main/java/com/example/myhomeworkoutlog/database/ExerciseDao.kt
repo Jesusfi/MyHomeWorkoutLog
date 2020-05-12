@@ -1,13 +1,10 @@
 package com.example.myhomeworkoutlog.database
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 
 @Dao
-interface ExerciseDao{
+interface ExerciseDao {
     @Insert
     fun insert(exercise: Exercise)
 
@@ -35,5 +32,11 @@ interface ExerciseDao{
      * Selects and returns the exercise with given exerciseId.
      */
     @Query("SELECT * from exercise_list_table WHERE exerciseId = :key")
-    fun getNightWithId(key: Long): LiveData<Exercise>
+    fun getExerciseWithId(key: Long): LiveData<Exercise>
+
+    /**
+     * Deletes exercise with given exerciseId
+     */
+    @Query("DELETE FROM exercise_list_table WHERE exerciseId = :key")
+    fun deleteByExerciseId(key: Long)
 }

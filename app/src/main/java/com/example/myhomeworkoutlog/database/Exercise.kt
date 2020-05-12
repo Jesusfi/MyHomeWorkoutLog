@@ -11,8 +11,8 @@ data class Exercise(
     val exerciseId:Long = 0L,
 
     @ColumnInfo(name = "exercise_name")
-    val exerciseName: String,
+    var exerciseName: String,
 
     @ColumnInfo(name = "exercise_type")
-    val exerciseType: String
+    var exerciseType: String
 )

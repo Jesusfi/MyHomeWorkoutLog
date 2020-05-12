@@ -1,30 +1,34 @@
-package com.example.myhomeworkoutlog.workoutlist.addexercise
+package com.example.myhomeworkoutlog.exerciselist.addexercisedialog
 
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.myhomeworkoutlog.R
 import com.example.myhomeworkoutlog.database.WorkoutLoggerDatabase
 import com.example.myhomeworkoutlog.databinding.FragmentAddExerciseDialogBinding
-import com.example.myhomeworkoutlog.workoutlist.ExerciseListViewModel
-import com.example.myhomeworkoutlog.workoutlist.ExerciseListViewModelFactory
 
-class AddExerciseDialog : DialogFragment() {
+class AddExerciseDialog private constructor() : DialogFragment() {
 
     lateinit var binding: FragmentAddExerciseDialogBinding
     lateinit var viewModel: AddExerciseViewModel
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
+
+    companion object{
+        const val TAG = "AddExerciseDialog"
+
+        fun newInstance(): AddExerciseDialog{
+            return AddExerciseDialog()
+        }
+    }
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(activity)
 
         //Bind
@@ -37,42 +41,48 @@ class AddExerciseDialog : DialogFragment() {
         val viewModelFactory = AddExerciseViewModelFactory(dataSource, application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(AddExerciseViewModel::class.java)
         binding.viewModel = viewModel
-
+        
         //Set adapter
-        val spinnerAdapter = ArrayAdapter.createFromResource(application.applicationContext, R.array.exercise_type, R.layout.spinner_item)
+        val spinnerAdapter = ArrayAdapter.createFromResource(
+            application.applicationContext,
+            R.array.exercise_type,
+            R.layout.spinner_item
+        )
         spinnerAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
         binding.spinner.adapter = spinnerAdapter
 
-        setOnClickListeners()
 
         viewModel.userInputNothingForExerciseNameEvent.observe(this, Observer {
-            if(it){
+            if (it) {
                 notifyUserToEnterExerciseName()
             }
         })
 
+        viewModel.exitDialogEventOnActionComplete.observe(this, Observer {
+            if (it) {
+                dismiss()
+                viewModel.finishedExitingDialog()
+            }
+        })
+
+        setOnClickListeners()
         builder.setView(binding.root)
         return builder.create()
+    }
+
+    private fun setOnClickListeners() {
+        binding.buttonCompleteDialogAction.setOnClickListener {
+            viewModel.onUserClickDialogButton(
+                binding.editTextExerciseName.text.toString(),
+                binding.spinner.selectedItem.toString(),
+                1
+            )
+        }
     }
 
     private fun notifyUserToEnterExerciseName() {
         binding.editTextExerciseName.error = getString(R.string.error_enter_exercise_name)
         viewModel.finishedNotifyingUserInputtedNothing()
-    }
-
-    private fun setOnClickListeners() {
-        binding.buttonAddExercise.setOnClickListener {
-            val exerciseName = binding.editTextExerciseName.text.toString()
-            val exerciseType = binding.spinner.selectedItem.toString()
-
-            if(TextUtils.isEmpty(exerciseName)){
-                viewModel.onUserInputNothing()
-            }else{
-                viewModel.onCreateNewExercise(exerciseName, exerciseType)
-                dismiss()
-            }
-
-        }
     }
 
     override fun onCreateView(

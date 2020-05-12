@@ -16,7 +16,7 @@ app:startDestination="@id/mainFragment">
 </fragment>
 <fragment
     android:id="@+id/workoutListFragment"
-    android:name="com.example.myhomeworkoutlog.workoutlist.ExerciseListFragment"
+    android:name="com.example.myhomeworkoutlog.exerciselist.ExerciseListFragment"
     android:label="Your Exercises"
     tools:layout="@layout/fragment_workout_list" />
 </navigation>

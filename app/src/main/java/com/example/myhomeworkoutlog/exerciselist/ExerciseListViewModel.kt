@@ -1,4 +1,4 @@
-package com.example.myhomeworkoutlog.workoutlist
+package com.example.myhomeworkoutlog.exerciselist
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -72,6 +72,18 @@ class ExerciseListViewModel(
     fun onClear(){
         uiScope.launch {
             clear()
+        }
+    }
+
+    fun onDeleteExerciseById(exerciseId: Long){
+        uiScope.launch {
+            deleteExerciseWithId(exerciseId)
+        }
+    }
+
+    private suspend fun deleteExerciseWithId(exerciseId: Long) {
+        withContext(Dispatchers.IO){
+            database.deleteByExerciseId(exerciseId)
         }
     }
 
