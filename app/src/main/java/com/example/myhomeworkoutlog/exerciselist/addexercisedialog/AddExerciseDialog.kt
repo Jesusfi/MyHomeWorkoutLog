@@ -31,7 +31,7 @@ class AddExerciseDialog private constructor() : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(activity)
 
-        //Bind
+        //Inflate View
         binding = FragmentAddExerciseDialogBinding.inflate(LayoutInflater.from(context))
         binding.lifecycleOwner = this
 

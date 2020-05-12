@@ -126,7 +126,6 @@ class ExerciseListFragment : Fragment() {
         ft.addToBackStack(null)
         val contextMenuDialog = ContextMenuListDialog.getInstance(exerciseId)
         contextMenuDialog.show(ft, ContextMenuListDialog.TAG)
-       // parentFragmentManager.executePendingTransactions()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

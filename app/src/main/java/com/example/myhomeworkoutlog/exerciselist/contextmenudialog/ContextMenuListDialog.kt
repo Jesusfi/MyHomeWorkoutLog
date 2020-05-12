@@ -5,15 +5,18 @@ import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.myhomeworkoutlog.R
 import com.example.myhomeworkoutlog.database.WorkoutLoggerDatabase
 import com.example.myhomeworkoutlog.databinding.FragmentContextMenuDialogBinding
 import com.example.myhomeworkoutlog.exerciselist.addexercisedialog.AddExerciseDialog
 import com.example.myhomeworkoutlog.exerciselist.updateexercisedialog.UpdateExerciseDialog
 
-class ContextMenuListDialog private constructor(): DialogFragment() {
+class ContextMenuListDialog private constructor() : DialogFragment() {
 
     lateinit var binding: FragmentContextMenuDialogBinding
     lateinit var viewModel: ContextMenuListViewModel
@@ -21,7 +24,7 @@ class ContextMenuListDialog private constructor(): DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         //Get arguments
         val exerciseId = arguments?.getLong(BUNDLE_KEY)
-        Log.d("bundleTest","Got key ${exerciseId}")
+        Log.d("bundleTest", "Got key ${exerciseId}")
 
         //inflate view
         binding = FragmentContextMenuDialogBinding.inflate(LayoutInflater.from(context))
@@ -30,30 +33,28 @@ class ContextMenuListDialog private constructor(): DialogFragment() {
         val application = requireNotNull(this.activity).application
         val dataSource = WorkoutLoggerDatabase.getInstance(application).exerciseDao
         val viewModelFactory = ContextMenuListViewModelFactory(dataSource, application)
-
         viewModel =
             ViewModelProvider(this, viewModelFactory).get(ContextMenuListViewModel::class.java)
 
         binding.viewModel = viewModel
         binding.exerciseId = exerciseId
 
-       viewModel.exitDialogOnDeleteComplete.observe(this, Observer {
-           if(it){
-               dismiss()
-               Log.d("ContextMenuDialog","Reached dismiss")
-               viewModel.finishedExitDialog()
-           }
-       })
+        viewModel.exitDialogOnDeleteComplete.observe(this, Observer {
+            if (it) {
+                dismiss()
+                Log.d("ContextMenuDialog", "Reached dismiss")
+                viewModel.finishedExitDialog()
+            }
+        })
 
         viewModel.navigateToEditExerciseDialog.observe(this, Observer {
-            if(it){
+            if (it) {
                 navigateToUpdateExercise(exerciseId)
                 viewModel.onNavigationToEditDialogComplete()
             }
         })
 
         val builder = AlertDialog.Builder(activity)
-        builder.setTitle("Choose Action")
         builder.setView(binding.root)
 
         return builder.create()
@@ -77,7 +78,8 @@ class ContextMenuListDialog private constructor(): DialogFragment() {
         ft.addToBackStack(null)
         dialogFragment.show(ft, UpdateExerciseDialog.TAG)
     }
-    companion object{
+
+    companion object {
         const val TAG = "ContextMenuExerciseListDialog"
         private const val BUNDLE_KEY = "exerciseKey"
 
@@ -89,5 +91,14 @@ class ContextMenuListDialog private constructor(): DialogFragment() {
             dialog.arguments = bundle
             return dialog
         }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        dialog?.window?.setBackgroundDrawableResource(R.drawable.dialog_rounded)
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 }
