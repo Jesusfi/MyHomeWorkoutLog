@@ -12,9 +12,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myhomeworkoutlog.R
 import com.example.myhomeworkoutlog.database.WorkoutLoggerDatabase
-import com.example.myhomeworkoutlog.databinding.FragmentWorkoutListBinding
+import com.example.myhomeworkoutlog.databinding.FragmentExerciseListBinding
 import com.example.myhomeworkoutlog.exerciselist.addexercisedialog.AddExerciseDialog
 import com.example.myhomeworkoutlog.exerciselist.contextmenudialog.ContextMenuListDialog
 import com.google.android.material.snackbar.Snackbar
@@ -24,7 +25,7 @@ import com.google.android.material.snackbar.Snackbar
  * A simple [Fragment] subclass.
  */
 class ExerciseListFragment : Fragment() {
-    lateinit var binding: FragmentWorkoutListBinding
+    lateinit var binding: FragmentExerciseListBinding
     lateinit var viewModel: ExerciseListViewModel
 
     override fun onCreateView(
@@ -32,7 +33,7 @@ class ExerciseListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentWorkoutListBinding.inflate(layoutInflater)
+        binding = FragmentExerciseListBinding.inflate(layoutInflater)
 
         // Specify the current fragment as the lifecycle owner.
         binding.lifecycleOwner = this
@@ -62,7 +63,7 @@ class ExerciseListFragment : Fragment() {
                 showContextMenuForExercise(exerciseId)
             }
 
-        val manager = GridLayoutManager(context, 2)// StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)//
+        val manager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL, false)//GridLayoutManager(context, 2)// StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)//
         binding.exerciseList.adapter = adapter
         binding.exerciseList.layoutManager = manager
 
