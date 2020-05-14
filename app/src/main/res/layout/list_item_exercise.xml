@@ -4,76 +4,73 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="exercise"
             type="com.example.myhomeworkoutlog.database.Exercise" />
+
         <variable
             name="clickListener"
             type="com.example.myhomeworkoutlog.exerciselist.ExerciseListRVAdapter.ExerciseListener" />
     </data>
 
-    <androidx.cardview.widget.CardView
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="2dp">
+        android:foreground="?attr/selectableItemBackground"
+        android:onClick="@{() -> clickListener.onClick(exercise)}"
+        android:padding="8dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/parent"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:foreground="?attr/selectableItemBackground"
-            android:onClick="@{() -> clickListener.onClick(exercise)}"
-            android:padding="8dp">
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp"
-                android:autoSizeMaxTextSize="20sp"
-                android:autoSizeMinTextSize="12sp"
-                android:autoSizeStepGranularity="2sp"
-                android:autoSizeTextType="uniform"
-                android:maxLines="1"
-                android:text="@{exercise.exerciseName}"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="@android:color/background_dark"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView_circle_background"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Pushups" />
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:autoSizeMaxTextSize="20sp"
+            android:autoSizeMinTextSize="12sp"
+            android:autoSizeStepGranularity="2sp"
+            android:autoSizeTextType="uniform"
+            android:maxLines="1"
+            android:text="@{exercise.exerciseName}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@android:color/background_dark"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView_circle_background"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Pushups" />
 
 
-            <ImageView
-                android:id="@+id/imageView_circle_background"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="@+id/textView2"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView2"
-                app:srcCompat="@drawable/circle_background" />
+        <ImageView
+            android:id="@+id/imageView_circle_background"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/textView2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView2"
+            app:srcCompat="@drawable/circle_background" />
 
-            <ImageView
-                android:id="@+id/imageView_exercise_type"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:scaleType="fitEnd"
-                android:src='@{exercise.exerciseType.equals("Cardio") ? @drawable/noun_cardio : @drawable/noun_strong}'
-                android:tint="@color/white"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView_circle_background"
-                app:layout_constraintEnd_toEndOf="@+id/imageView_circle_background"
-                app:layout_constraintStart_toStartOf="@+id/imageView_circle_background"
-                app:layout_constraintTop_toTopOf="@+id/imageView_circle_background"
-                tools:srcCompat="@drawable/noun_cardio" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+        <ImageView
+            android:id="@+id/imageView_exercise_type"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitEnd"
+            android:src='@{exercise.exerciseType.equals("Cardio") ? @drawable/noun_cardio : @drawable/noun_strong}'
+            android:tint="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView_circle_background"
+            app:layout_constraintEnd_toEndOf="@+id/imageView_circle_background"
+            app:layout_constraintStart_toStartOf="@+id/imageView_circle_background"
+            app:layout_constraintTop_toTopOf="@+id/imageView_circle_background"
+            tools:srcCompat="@drawable/noun_cardio" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </layout>
