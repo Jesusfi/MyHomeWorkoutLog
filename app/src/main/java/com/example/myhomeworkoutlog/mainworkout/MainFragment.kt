@@ -23,18 +23,11 @@ class MainFragment : Fragment() {
 
     lateinit var binding: FragmentMainBinding
 
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val navController = findNavController()
-        val appBarConfiguration = AppBarConfiguration(navController.graph)
-
-        view.findViewById<Toolbar>(R.id.toolbar)
-            .setupWithNavController(navController, appBarConfiguration)
-    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         // Inflate the layout for this fragment
         binding = FragmentMainBinding.inflate(layoutInflater)
 

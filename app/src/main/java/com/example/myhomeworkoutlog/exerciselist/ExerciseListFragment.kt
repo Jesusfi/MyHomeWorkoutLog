@@ -3,15 +3,9 @@ package com.example.myhomeworkoutlog.exerciselist
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.*
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupWithNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myhomeworkoutlog.R
 import com.example.myhomeworkoutlog.database.WorkoutLoggerDatabase
@@ -38,8 +32,6 @@ class ExerciseListFragment : Fragment() {
         // Specify the current fragment as the lifecycle owner.
         binding.lifecycleOwner = this
 
-        //Set Action bar
-        (activity as AppCompatActivity?)!!.setSupportActionBar(binding.toolbar)
         setHasOptionsMenu(true)
 
         val application = requireNotNull(this.activity).application
@@ -94,15 +86,7 @@ class ExerciseListFragment : Fragment() {
             .setNegativeButton(android.R.string.no, null)
             .show()
     }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val navController = findNavController()
-        val appBarConfiguration = AppBarConfiguration(navController.graph)
-
-        view.findViewById<Toolbar>(R.id.toolbar)
-            .setupWithNavController(navController, appBarConfiguration)
-
-    }
+    
 
     private fun addNewWorkoutItem() {
         val ft = parentFragmentManager.beginTransaction()
@@ -131,6 +115,7 @@ class ExerciseListFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
+        menu.clear() //TODO find out if this action is needed
         inflater.inflate(R.menu.workoutlist_menu, menu)
     }
 
