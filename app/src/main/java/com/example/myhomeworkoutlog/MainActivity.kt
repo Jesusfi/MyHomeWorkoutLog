@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
 
         //Set Toolbar as Action Bar
         setSupportActionBar(binding.toolbar)
+        supportActionBar?.title = getString(R.string.fragment_main_title) //sets current title to
 
         //Set up navigation using NavigationUI
         setUpNavigation()

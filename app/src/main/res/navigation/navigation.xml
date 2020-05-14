@@ -8,7 +8,7 @@ app:startDestination="@id/mainFragment">
 <fragment
     android:id="@+id/mainFragment"
     android:name="com.example.myhomeworkoutlog.mainworkout.MainFragment"
-    android:label="Home"
+    android:label="@string/fragment_main_title"
     tools:layout="@layout/fragment_main">
     <action
         android:id="@+id/action_mainFragment_to_workoutListFragment"
