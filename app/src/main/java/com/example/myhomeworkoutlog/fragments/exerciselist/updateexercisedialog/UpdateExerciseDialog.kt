@@ -1,4 +1,4 @@
-package com.example.myhomeworkoutlog.exerciselist.updateexercisedialog
+package com.example.myhomeworkoutlog.fragments.exerciselist.updateexercisedialog
 
 import android.app.AlertDialog
 import android.app.Dialog
@@ -12,11 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.myhomeworkoutlog.R
 import com.example.myhomeworkoutlog.database.WorkoutLoggerDatabase
-import com.example.myhomeworkoutlog.databinding.FragmentAddExerciseDialogBinding
 import com.example.myhomeworkoutlog.databinding.FragmentUpdateExerciseDialogBinding
-import com.example.myhomeworkoutlog.exerciselist.addexercisedialog.AddExerciseDialog
-import com.example.myhomeworkoutlog.exerciselist.addexercisedialog.AddExerciseViewModel
-import com.example.myhomeworkoutlog.exerciselist.addexercisedialog.AddExerciseViewModelFactory
 
 class UpdateExerciseDialog private constructor() : DialogFragment() {
     lateinit var binding: FragmentUpdateExerciseDialogBinding
@@ -27,7 +23,8 @@ class UpdateExerciseDialog private constructor() : DialogFragment() {
         const val EXERCISE_ID_KEY = "exerciseIdKey"
 
         fun newInstance(exerciseId: Long): UpdateExerciseDialog {
-            val dialog = UpdateExerciseDialog()
+            val dialog =
+                UpdateExerciseDialog()
             val bundle = Bundle()
 
             bundle.putLong(EXERCISE_ID_KEY, exerciseId)
@@ -51,7 +48,12 @@ class UpdateExerciseDialog private constructor() : DialogFragment() {
         //Set viewModel
         val application = requireNotNull(this.activity).application
         val dataSource = WorkoutLoggerDatabase.getInstance(application).exerciseDao
-        val viewModelFactory = UpdateExerciseViewModelFactory(dataSource, application, exerciseId!!)
+        val viewModelFactory =
+            UpdateExerciseViewModelFactory(
+                dataSource,
+                application,
+                exerciseId!!
+            )
         viewModel =
             ViewModelProvider(this, viewModelFactory).get(UpdateExerciseViewModel::class.java)
         binding.viewModel = viewModel

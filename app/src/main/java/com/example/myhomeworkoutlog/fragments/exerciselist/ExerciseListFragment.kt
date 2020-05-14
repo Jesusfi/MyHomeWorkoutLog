@@ -1,4 +1,4 @@
-package com.example.myhomeworkoutlog.exerciselist
+package com.example.myhomeworkoutlog.fragments.exerciselist
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myhomeworkoutlog.R
 import com.example.myhomeworkoutlog.database.WorkoutLoggerDatabase
 import com.example.myhomeworkoutlog.databinding.FragmentExerciseListBinding
-import com.example.myhomeworkoutlog.exerciselist.addexercisedialog.AddExerciseDialog
-import com.example.myhomeworkoutlog.exerciselist.contextmenudialog.ContextMenuListDialog
+import com.example.myhomeworkoutlog.fragments.exerciselist.addexercisedialog.AddExerciseDialog
+import com.example.myhomeworkoutlog.fragments.exerciselist.contextmenudialog.ContextMenuListDialog
 import com.google.android.material.snackbar.Snackbar
 
 
@@ -36,7 +36,11 @@ class ExerciseListFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
         val dataSource = WorkoutLoggerDatabase.getInstance(application).exerciseDao
-        val viewModelFactory = ExerciseListViewModelFactory(dataSource, application)
+        val viewModelFactory =
+            ExerciseListViewModelFactory(
+                dataSource,
+                application
+            )
 
         viewModel =
             ViewModelProvider(this, viewModelFactory).get(ExerciseListViewModel::class.java)
@@ -44,13 +48,14 @@ class ExerciseListFragment : Fragment() {
         binding.viewModel = viewModel
 
         val adapter =
-            ExerciseListRVAdapter(ExerciseListRVAdapter.ExerciseListener { exerciseId ->
-                Snackbar.make(
-                    binding.layoutExerciseListParent,
-                    "you clicked $exerciseId",
-                    Snackbar.LENGTH_SHORT
-                ).show()
-            }) { exerciseId ->
+            ExerciseListRVAdapter(
+                ExerciseListRVAdapter.ExerciseListener { exerciseId ->
+                    Snackbar.make(
+                        binding.layoutExerciseListParent,
+                        "you clicked $exerciseId",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                }) { exerciseId ->
                 //confirmDeleteExercise(exerciseId)
                 showContextMenuForExercise(exerciseId)
             }
@@ -86,7 +91,7 @@ class ExerciseListFragment : Fragment() {
             .setNegativeButton(android.R.string.no, null)
             .show()
     }
-    
+
 
     private fun addNewWorkoutItem() {
         val ft = parentFragmentManager.beginTransaction()

@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.myhomeworkoutlog.exerciselist.contextmenudialog.ContextMenuListViewModel" />
+            type="com.example.myhomeworkoutlog.fragments.exerciselist.contextmenudialog.ContextMenuListViewModel" />
         <variable
             name="exerciseId"
             type="Long" />

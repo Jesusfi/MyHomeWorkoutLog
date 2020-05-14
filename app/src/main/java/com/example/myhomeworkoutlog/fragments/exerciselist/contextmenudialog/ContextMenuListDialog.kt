@@ -1,4 +1,4 @@
-package com.example.myhomeworkoutlog.exerciselist.contextmenudialog
+package com.example.myhomeworkoutlog.fragments.exerciselist.contextmenudialog
 
 import android.app.AlertDialog
 import android.app.Dialog
@@ -13,8 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.myhomeworkoutlog.R
 import com.example.myhomeworkoutlog.database.WorkoutLoggerDatabase
 import com.example.myhomeworkoutlog.databinding.FragmentContextMenuDialogBinding
-import com.example.myhomeworkoutlog.exerciselist.addexercisedialog.AddExerciseDialog
-import com.example.myhomeworkoutlog.exerciselist.updateexercisedialog.UpdateExerciseDialog
+import com.example.myhomeworkoutlog.fragments.exerciselist.updateexercisedialog.UpdateExerciseDialog
 
 class ContextMenuListDialog private constructor() : DialogFragment() {
 
@@ -32,7 +31,11 @@ class ContextMenuListDialog private constructor() : DialogFragment() {
 
         val application = requireNotNull(this.activity).application
         val dataSource = WorkoutLoggerDatabase.getInstance(application).exerciseDao
-        val viewModelFactory = ContextMenuListViewModelFactory(dataSource, application)
+        val viewModelFactory =
+            ContextMenuListViewModelFactory(
+                dataSource,
+                application
+            )
         viewModel =
             ViewModelProvider(this, viewModelFactory).get(ContextMenuListViewModel::class.java)
 
@@ -84,7 +87,8 @@ class ContextMenuListDialog private constructor() : DialogFragment() {
         private const val BUNDLE_KEY = "exerciseKey"
 
         fun getInstance(exerciseId: Long): ContextMenuListDialog {
-            val dialog = ContextMenuListDialog()
+            val dialog =
+                ContextMenuListDialog()
             val bundle = Bundle()
 
             bundle.putLong(BUNDLE_KEY, exerciseId)

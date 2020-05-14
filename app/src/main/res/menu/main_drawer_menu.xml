@@ -5,4 +5,10 @@
     <item
         android:id="@+id/workoutListFragment"
         android:title="Exercise " />
+    <item
+        android:id="@+id/categoryListFragment"
+        android:title="Categories" />
+    <item
+        android:id="@+id/routineListFragment"
+        android:title="Routines" />
 </menu>

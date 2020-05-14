@@ -1,4 +1,4 @@
-package com.example.myhomeworkoutlog.exerciselist.contextmenudialog
+package com.example.myhomeworkoutlog.fragments.exerciselist.contextmenudialog
 
 import android.app.Application
 import android.util.Log

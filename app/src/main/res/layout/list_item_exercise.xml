@@ -11,7 +11,7 @@
 
         <variable
             name="clickListener"
-            type="com.example.myhomeworkoutlog.exerciselist.ExerciseListRVAdapter.ExerciseListener" />
+            type="com.example.myhomeworkoutlog.fragments.exerciselist.ExerciseListRVAdapter.ExerciseListener" />
     </data>
 
 

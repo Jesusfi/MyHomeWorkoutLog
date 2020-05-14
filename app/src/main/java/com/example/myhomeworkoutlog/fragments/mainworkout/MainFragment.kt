@@ -1,18 +1,13 @@
-package com.example.myhomeworkoutlog.mainworkout
+package com.example.myhomeworkoutlog.fragments.mainworkout
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.Toolbar
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupWithNavController
 import com.example.myhomeworkoutlog.R
 import com.example.myhomeworkoutlog.databinding.FragmentMainBinding
 
@@ -34,7 +29,8 @@ class MainFragment : Fragment() {
         // Specify the current fragment as the lifecycle owner.
         binding.lifecycleOwner = this
 
-        val viewModel: MainFragmentViewModel = ViewModelProvider(this).get(MainFragmentViewModel::class.java)
+        val viewModel: MainFragmentViewModel = ViewModelProvider(this).get(
+            MainFragmentViewModel::class.java)
         binding.viewModel = viewModel
 
         viewModel.navigateToWorkoutListEvent.observe(viewLifecycleOwner, Observer {

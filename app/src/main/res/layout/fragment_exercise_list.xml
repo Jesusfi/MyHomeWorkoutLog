@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.myhomeworkoutlog.exerciselist.ExerciseListViewModel" />
+            type="com.example.myhomeworkoutlog.fragments.exerciselist.ExerciseListViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

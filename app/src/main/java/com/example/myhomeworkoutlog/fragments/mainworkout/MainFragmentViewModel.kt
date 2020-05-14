@@ -1,6 +1,5 @@
-package com.example.myhomeworkoutlog.mainworkout
+package com.example.myhomeworkoutlog.fragments.mainworkout
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

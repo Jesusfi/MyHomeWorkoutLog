@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.myhomeworkoutlog.exerciselist.addexercisedialog.AddExerciseViewModel" />
+            type="com.example.myhomeworkoutlog.fragments.exerciselist.addexercisedialog.AddExerciseViewModel" />
         <variable
             name="dialogTypeIdentifier"
             type="String" />
