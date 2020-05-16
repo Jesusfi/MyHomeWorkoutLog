@@ -20,6 +20,7 @@ interface ExerciseDao {
     @Query("DELETE FROM exercise_list_table")
     fun clear()
 
+
     /**
      * Selects and returns all rows in the table,
      *
@@ -27,7 +28,6 @@ interface ExerciseDao {
      */
     @Query("SELECT * FROM exercise_list_table ORDER BY exerciseId DESC")
     fun getAllExercises(): LiveData<List<Exercise>>
-
 
     /**
      * Selects and returns the exercise with given exerciseId.
