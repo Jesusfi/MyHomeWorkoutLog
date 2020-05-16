@@ -7,16 +7,32 @@ app:startDestination="@id/mainFragment">
 
 <fragment
     android:id="@+id/mainFragment"
-    android:name="com.example.myhomeworkoutlog.mainworkout.MainFragment"
-    android:label="Home"
+    android:name="com.example.myhomeworkoutlog.fragments.mainworkout.MainFragment"
+    android:label="@string/fragment_main_title"
     tools:layout="@layout/fragment_main">
     <action
         android:id="@+id/action_mainFragment_to_workoutListFragment"
         app:destination="@id/workoutListFragment" />
+    <action
+        android:id="@+id/action_mainFragment_to_categoryListFragment"
+        app:destination="@id/categoryListFragment" />
+    <action
+        android:id="@+id/action_mainFragment_to_routineListFragment"
+        app:destination="@id/routineListFragment" />
 </fragment>
 <fragment
     android:id="@+id/workoutListFragment"
-    android:name="com.example.myhomeworkoutlog.exerciselist.ExerciseListFragment"
+    android:name="com.example.myhomeworkoutlog.fragments.exerciselist.ExerciseListFragment"
     android:label="Your Exercises"
-    tools:layout="@layout/fragment_workout_list" />
+    tools:layout="@layout/fragment_exercise_list" />
+    <fragment
+        android:id="@+id/categoryListFragment"
+        android:name="com.example.myhomeworkoutlog.fragments.categorylist.CategoryListFragment"
+        android:label="Your Categories"
+        tools:layout="@layout/fragment_category_list" />
+    <fragment
+        android:id="@+id/routineListFragment"
+        android:name="com.example.myhomeworkoutlog.fragments.routinelist.RoutineListFragment"
+        android:label="Your Routines"
+        tools:layout="@layout/fragment_routine_list" />
 </navigation>

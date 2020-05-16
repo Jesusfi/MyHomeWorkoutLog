@@ -1,4 +1,4 @@
-package com.example.myhomeworkoutlog.exerciselist.updateexercisedialog
+package com.example.myhomeworkoutlog.fragments.exerciselist.updateexercisedialog
 
 import android.app.Application
 import android.text.TextUtils

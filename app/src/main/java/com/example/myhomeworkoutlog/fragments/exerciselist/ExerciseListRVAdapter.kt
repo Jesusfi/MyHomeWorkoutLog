@@ -1,4 +1,4 @@
-package com.example.myhomeworkoutlog.exerciselist
+package com.example.myhomeworkoutlog.fragments.exerciselist
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -13,7 +13,9 @@ class ExerciseListRVAdapter(
     private val exerciseListener: ExerciseListener,
     private val longClickListener: ((exerciseId: Long) -> Unit)
 ) :
-    ListAdapter<Exercise, ExerciseListRVAdapter.ViewHolder>(ExerciseDiffCallback()) {
+    ListAdapter<Exercise, ExerciseListRVAdapter.ViewHolder>(
+        ExerciseDiffCallback()
+    ) {
 
 
     class ViewHolder private constructor(private val binding: ListItemExerciseBinding) :
@@ -38,13 +40,17 @@ class ExerciseListRVAdapter(
             fun from(parent: ViewGroup): ViewHolder {
                 val inflater = LayoutInflater.from(parent.context)
                 val binding = ListItemExerciseBinding.inflate(inflater, parent, false)
-                return ViewHolder(binding)
+                return ViewHolder(
+                    binding
+                )
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder.from(parent)
+        return ViewHolder.from(
+            parent
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

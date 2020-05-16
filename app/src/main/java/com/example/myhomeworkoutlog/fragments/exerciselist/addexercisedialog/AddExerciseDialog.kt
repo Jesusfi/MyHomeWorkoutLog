@@ -1,4 +1,4 @@
-package com.example.myhomeworkoutlog.exerciselist.addexercisedialog
+package com.example.myhomeworkoutlog.fragments.exerciselist.addexercisedialog
 
 import android.app.AlertDialog
 import android.app.Dialog
@@ -23,7 +23,7 @@ class AddExerciseDialog private constructor() : DialogFragment() {
     companion object{
         const val TAG = "AddExerciseDialog"
 
-        fun newInstance(): AddExerciseDialog{
+        fun newInstance(): AddExerciseDialog {
             return AddExerciseDialog()
         }
     }
@@ -31,14 +31,18 @@ class AddExerciseDialog private constructor() : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(activity)
 
-        //Bind
+        //Inflate View
         binding = FragmentAddExerciseDialogBinding.inflate(LayoutInflater.from(context))
         binding.lifecycleOwner = this
 
         //Set viewModel
         val application = requireNotNull(this.activity).application
         val dataSource = WorkoutLoggerDatabase.getInstance(application).exerciseDao
-        val viewModelFactory = AddExerciseViewModelFactory(dataSource, application)
+        val viewModelFactory =
+            AddExerciseViewModelFactory(
+                dataSource,
+                application
+            )
         viewModel = ViewModelProvider(this, viewModelFactory).get(AddExerciseViewModel::class.java)
         binding.viewModel = viewModel
         

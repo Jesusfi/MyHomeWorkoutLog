@@ -1,22 +1,17 @@
-package com.example.myhomeworkoutlog.exerciselist
+package com.example.myhomeworkoutlog.fragments.exerciselist
 
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.*
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupWithNavController
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myhomeworkoutlog.R
 import com.example.myhomeworkoutlog.database.WorkoutLoggerDatabase
-import com.example.myhomeworkoutlog.databinding.FragmentWorkoutListBinding
-import com.example.myhomeworkoutlog.exerciselist.addexercisedialog.AddExerciseDialog
-import com.example.myhomeworkoutlog.exerciselist.contextmenudialog.ContextMenuListDialog
+import com.example.myhomeworkoutlog.databinding.FragmentExerciseListBinding
+import com.example.myhomeworkoutlog.fragments.exerciselist.addexercisedialog.AddExerciseDialog
+import com.example.myhomeworkoutlog.fragments.exerciselist.contextmenudialog.ContextMenuListDialog
 import com.google.android.material.snackbar.Snackbar
 
 
@@ -24,7 +19,7 @@ import com.google.android.material.snackbar.Snackbar
  * A simple [Fragment] subclass.
  */
 class ExerciseListFragment : Fragment() {
-    lateinit var binding: FragmentWorkoutListBinding
+    lateinit var binding: FragmentExerciseListBinding
     lateinit var viewModel: ExerciseListViewModel
 
     override fun onCreateView(
@@ -32,18 +27,20 @@ class ExerciseListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentWorkoutListBinding.inflate(layoutInflater)
+        binding = FragmentExerciseListBinding.inflate(layoutInflater)
 
         // Specify the current fragment as the lifecycle owner.
         binding.lifecycleOwner = this
 
-        //Set Action bar
-        (activity as AppCompatActivity?)!!.setSupportActionBar(binding.toolbar)
         setHasOptionsMenu(true)
 
         val application = requireNotNull(this.activity).application
         val dataSource = WorkoutLoggerDatabase.getInstance(application).exerciseDao
-        val viewModelFactory = ExerciseListViewModelFactory(dataSource, application)
+        val viewModelFactory =
+            ExerciseListViewModelFactory(
+                dataSource,
+                application
+            )
 
         viewModel =
             ViewModelProvider(this, viewModelFactory).get(ExerciseListViewModel::class.java)
@@ -51,18 +48,19 @@ class ExerciseListFragment : Fragment() {
         binding.viewModel = viewModel
 
         val adapter =
-            ExerciseListRVAdapter(ExerciseListRVAdapter.ExerciseListener { exerciseId ->
-                Snackbar.make(
-                    binding.layoutExerciseListParent,
-                    "you clicked $exerciseId",
-                    Snackbar.LENGTH_SHORT
-                ).show()
-            }) { exerciseId ->
+            ExerciseListRVAdapter(
+                ExerciseListRVAdapter.ExerciseListener { exerciseId ->
+                    Snackbar.make(
+                        binding.layoutExerciseListParent,
+                        "you clicked $exerciseId",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                }) { exerciseId ->
                 //confirmDeleteExercise(exerciseId)
                 showContextMenuForExercise(exerciseId)
             }
 
-        val manager = GridLayoutManager(context, 2)// StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)//
+        val manager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL, false)//GridLayoutManager(context, 2)// StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)//
         binding.exerciseList.adapter = adapter
         binding.exerciseList.layoutManager = manager
 
@@ -94,14 +92,6 @@ class ExerciseListFragment : Fragment() {
             .show()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val navController = findNavController()
-        val appBarConfiguration = AppBarConfiguration(navController.graph)
-
-        view.findViewById<Toolbar>(R.id.toolbar)
-            .setupWithNavController(navController, appBarConfiguration)
-
-    }
 
     private fun addNewWorkoutItem() {
         val ft = parentFragmentManager.beginTransaction()
@@ -126,11 +116,11 @@ class ExerciseListFragment : Fragment() {
         ft.addToBackStack(null)
         val contextMenuDialog = ContextMenuListDialog.getInstance(exerciseId)
         contextMenuDialog.show(ft, ContextMenuListDialog.TAG)
-       // parentFragmentManager.executePendingTransactions()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
+        menu.clear() //TODO find out if this action is needed
         inflater.inflate(R.menu.workoutlist_menu, menu)
     }
 

@@ -1,4 +1,4 @@
-package com.example.myhomeworkoutlog.exerciselist
+package com.example.myhomeworkoutlog.fragments.exerciselist
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

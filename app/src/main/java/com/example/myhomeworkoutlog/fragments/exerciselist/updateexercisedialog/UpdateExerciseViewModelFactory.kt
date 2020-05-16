@@ -1,4 +1,4 @@
-package com.example.myhomeworkoutlog.exerciselist.updateexercisedialog
+package com.example.myhomeworkoutlog.fragments.exerciselist.updateexercisedialog
 
 import android.app.Application
 import androidx.lifecycle.ViewModel
@@ -12,7 +12,11 @@ class UpdateExerciseViewModelFactory(
 ) : ViewModelProvider.Factory{
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(UpdateExerciseViewModel::class.java)) {
-            return UpdateExerciseViewModel(database, applicationContext, exerciseId) as T
+            return UpdateExerciseViewModel(
+                database,
+                applicationContext,
+                exerciseId
+            ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

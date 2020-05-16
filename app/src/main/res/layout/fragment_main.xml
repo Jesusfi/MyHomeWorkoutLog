@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.myhomeworkoutlog.mainworkout.MainFragmentViewModel" />
+            type="com.example.myhomeworkoutlog.fragments.mainworkout.MainFragmentViewModel" />
     </data>
 
     <LinearLayout
@@ -15,17 +15,10 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?android:attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"             />
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".mainworkout.MainFragment">
+            tools:context=".fragments.mainworkout.MainFragment">
 
             <Button
                 android:id="@+id/button_start_workout"

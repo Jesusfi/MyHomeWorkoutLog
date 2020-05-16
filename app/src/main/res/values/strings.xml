@@ -5,6 +5,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="error_enter_exercise_name">Please Enter Exercise Name</string>
     <string name="notify_list_cleared">List cleared</string>
+    <string name="button_delete">Delete</string>
+    <string name="fragment_main_title">Dashboard</string>
 
 
     <string-array name="exercise_type">
