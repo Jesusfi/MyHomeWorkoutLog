@@ -4,11 +4,14 @@
 
     <item
         android:id="@+id/workoutListFragment"
+        android:icon="@drawable/ic_workout_black_24dp"
         android:title="Exercise " />
     <item
         android:id="@+id/categoryListFragment"
+        android:icon="@drawable/ic_format_list_bulleted_black_24dp"
         android:title="Categories" />
     <item
         android:id="@+id/routineListFragment"
+        android:icon="@drawable/ic_fitness_center_black_24dp"
         android:title="Routines" />
 </menu>
