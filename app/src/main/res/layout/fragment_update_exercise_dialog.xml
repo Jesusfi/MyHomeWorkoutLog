@@ -8,7 +8,7 @@
             type="com.example.myhomeworkoutlog.fragments.exerciselist.updateexercisedialog.UpdateExerciseViewModel" />
         <variable
             name="exercise"
-            type="com.example.myhomeworkoutlog.database.Exercise" />
+            type="com.example.myhomeworkoutlog.database.exercise.Exercise" />
     </data>
 
     <androidx.cardview.widget.CardView

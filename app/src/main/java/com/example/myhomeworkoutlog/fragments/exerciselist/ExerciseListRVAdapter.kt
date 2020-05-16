@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
-import com.example.myhomeworkoutlog.database.Exercise
+import com.example.myhomeworkoutlog.database.exercise.Exercise
 import com.example.myhomeworkoutlog.databinding.ListItemExerciseBinding
 
 class ExerciseListRVAdapter(

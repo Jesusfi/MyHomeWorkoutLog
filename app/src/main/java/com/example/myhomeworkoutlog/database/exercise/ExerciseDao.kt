@@ -1,7 +1,8 @@
-package com.example.myhomeworkoutlog.database
+package com.example.myhomeworkoutlog.database.exercise
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.example.myhomeworkoutlog.database.exercise.Exercise
 
 @Dao
 interface ExerciseDao {

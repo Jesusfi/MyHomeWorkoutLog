@@ -3,7 +3,7 @@ package com.example.myhomeworkoutlog.fragments.exerciselist
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.myhomeworkoutlog.database.ExerciseDao
+import com.example.myhomeworkoutlog.database.exercise.ExerciseDao
 
 class ExerciseListViewModelFactory(
     private val database: ExerciseDao,

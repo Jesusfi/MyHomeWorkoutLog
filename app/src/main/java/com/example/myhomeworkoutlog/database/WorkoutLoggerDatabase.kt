@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.myhomeworkoutlog.database.exercise.Exercise
+import com.example.myhomeworkoutlog.database.exercise.ExerciseDao
 
 /**
  * A database that stores Exercise information.

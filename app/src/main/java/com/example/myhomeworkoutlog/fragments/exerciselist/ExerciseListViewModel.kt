@@ -5,8 +5,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.myhomeworkoutlog.database.Exercise
-import com.example.myhomeworkoutlog.database.ExerciseDao
+import com.example.myhomeworkoutlog.database.exercise.Exercise
+import com.example.myhomeworkoutlog.database.exercise.ExerciseDao
 import kotlinx.coroutines.*
 
 class ExerciseListViewModel(
@@ -58,7 +58,11 @@ class ExerciseListViewModel(
 
     fun onAddNewExerciseToList(exercise: Exercise){
         uiScope.launch {
-            val exerciseTest = Exercise(exerciseName = "pushups", exerciseType = "Cardio")
+            val exerciseTest =
+                Exercise(
+                    exerciseName = "pushups",
+                    exerciseType = "Cardio"
+                )
             insert(exerciseTest)
 
         }

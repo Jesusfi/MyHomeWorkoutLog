@@ -1,15 +1,14 @@
 package com.example.myhomeworkoutlog.fragments.exerciselist.addexercisedialog
 
 import android.app.Application
-import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.myhomeworkoutlog.database.Exercise
-import com.example.myhomeworkoutlog.database.ExerciseDao
+import com.example.myhomeworkoutlog.database.exercise.Exercise
+import com.example.myhomeworkoutlog.database.exercise.ExerciseDao
 import kotlinx.coroutines.*
 
 class AddExerciseViewModel(
@@ -58,7 +57,10 @@ class AddExerciseViewModel(
 
     private fun createAndSaveNewExercise(exerciseName: String, exerciseType: String) {
         Log.d("AddExercise", "reached create new exercise")
-        val exercise = Exercise(exerciseName = exerciseName, exerciseType = exerciseType)
+        val exercise = Exercise(
+            exerciseName = exerciseName,
+            exerciseType = exerciseType
+        )
 
         uiScope.launch {
             Log.d("AddExercise", "in uiScope")

@@ -3,7 +3,7 @@ package com.example.myhomeworkoutlog.fragments.exerciselist.contextmenudialog
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.myhomeworkoutlog.database.ExerciseDao
+import com.example.myhomeworkoutlog.database.exercise.ExerciseDao
 
 class ContextMenuListViewModelFactory(
     private val database: ExerciseDao,

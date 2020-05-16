@@ -1,4 +1,4 @@
-package com.example.myhomeworkoutlog.database
+package com.example.myhomeworkoutlog.database.exercise
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
